@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Taurus Hub</title>
+  <style>
+    :root{
+      --bg:#0b0f17;
+      --panel:rgba(255,255,255,.06);
+      --panel2:rgba(255,255,255,.08);
+      --text:rgba(255,255,255,.92);
+      --muted:rgba(255,255,255,.72);
+      --muted2:rgba(255,255,255,.58);
+      --border:rgba(255,255,255,.12);
+      --shadow: 0 18px 60px rgba(0,0,0,.55);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: radial-gradient(1200px 800px at 20% 0%, rgba(140,110,255,.20), transparent 55%),
+                  radial-gradient(900px 700px at 80% 10%, rgba(0,255,200,.16), transparent 55%),
+                  radial-gradient(1000px 800px at 50% 100%, rgba(255,70,170,.14), transparent 60%),
+                  var(--bg);
+      color:var(--text);
+      overflow-x:hidden;
+    }
+    .hero{padding:48px 18px 18px}
+    .heroInner{
+      max-width:1100px;margin:0 auto;border:1px solid var(--border);
+      background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.04));
+      border-radius:24px;box-shadow:var(--shadow);overflow:hidden
+    }
+    .cloud{
+      height:160px;
+      background:
+        radial-gradient(closest-side at 20% 45%, rgba(255,0,170,.55), transparent 60%),
+        radial-gradient(closest-side at 45% 40%, rgba(0,210,255,.55), transparent 60%),
+        radial-gradient(closest-side at 70% 55%, rgba(180,255,0,.40), transparent 60%),
+        radial-gradient(closest-side at 85% 35%, rgba(140,110,255,.55), transparent 62%),
+        radial-gradient(closest-side at 55% 75%, rgba(255,140,0,.40), transparent 62%),
+        linear-gradient(180deg, rgba(10,14,24,.15), rgba(10,14,24,.55));
+      animation:pulse 2.8s ease-in-out infinite
+    }
+    @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.02)}}
+    .heroTop{padding:18px;display:flex;justify-content:space-between;gap:12px}
+    .brand{display:flex;gap:12px;align-items:center}
+    .badge{
+      width:44px;height:44px;border-radius:14px;display:grid;place-items:center;
+      font-weight:800;background:rgba(255,255,255,.10);border:1px solid var(--border)
+    }
+    .title{font-size:22px;margin:0}
+    .sub{margin:6px 0 0;color:var(--muted);font-size:14px}
+    .pillRow{display:flex;gap:10px;flex-wrap:wrap;padding:14px 18px}
+    .pill{
+      text-decoration:none;color:var(--text);border:1px solid var(--border);
+      background:rgba(255,255,255,.06);padding:10px 12px;border-radius:999px;font-size:13px
+    }
+    .wrap{max-width:1100px;margin:0 auto;padding:18px}
+    .sectionLabel{margin:18px 0 12px;color:var(--muted);font-size:13px;text-transform:uppercase}
+    .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:14px}
+    .card{
+      grid-column:span 12;border:1px solid var(--border);
+      background:linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.04));
+      border-radius:18px;padding:16px
+    }
+    @media(min-width:860px){.card{grid-column:span 6}}
+    .row{display:flex;gap:10px;flex-wrap:wrap}
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;
+      padding:10px 12px;border-radius:12px;border:1px solid var(--border);
+      background:rgba(255,255,255,.06);color:var(--text);text-decoration:none;font-size:13px
+    }
+    .btnPrimary{background:rgba(255,255,255,.12)}
+    footer{margin-top:26px;padding:18px;border-top:1px solid rgba(255,255,255,.08);color:var(--muted2);font-size:12px;text-align:center}
+  </style>
+</head>
+
+<body>
+
+<section class="hero">
+  <div class="heroInner">
+    <div class="cloud"></div>
+    <div class="heroTop">
+      <div class="brand">
+        <div class="badge">TH</div>
+        <div>
+          <h1 class="title">Taurus Hub</h1>
+          <p class="sub">Learn at your own pace. No rush. Clean doors only.</p>
+        </div>
+      </div>
+      <div class="pillRow" style="padding:0;margin:0">
+        <a class="pill" href="#bots">Bots</a>
+        <a class="pill" href="#join">Join</a>
+        <a class="pill" href="#links">Links</a>
+      </div>
+    </div>
+    <div class="pillRow">
+      <span class="pill">No accounts</span>
+      <span class="pill">No tracking</span>
+      <span class="pill">One calm hub</span>
+    </div>
+  </div>
+</section>
+
+<main class="wrap">
+
+<div id="bots" class="sectionLabel">📦 Bots</div>
+
+<section class="grid">
+  <article class="card">
+    <h3>Gianni Dona</h3>
+    <p>Your main guidance room.</p>
+    <div class="row">
+      <a class="btn btnPrimary" href="https://monica.im/home/chat/gianni-dona/3ElxC224" target="_blank">Open</a>
+      <a class="btn" href="#join">Join / Unlock</a>
+    </div>
+  </article>
+
+  <article class="card">
+    <h3>Insight Engine</h3>
+    <p>Signal → test → decide.</p>
+    <div class="row">
+      <a class="btn btnPrimary" href="https://monica.im/home/chat/insight--engine/UWDW8jdK" target="_blank">Open</a>
+      <a class="btn" href="#join">Join / Unlock</a>
+    </div>
+  </article>
+
+  <article class="card">
+    <h3>Small Business Guide</h3>
+    <p>Calm, practical structure.</p>
+    <div class="row">
+      <a class="btn btnPrimary" href="https://monica.im/home/chat/small-business-systems-guide/4U2JRMi" target="_blank">Open</a>
+      <a class="btn" href="#join">Join / Unlock</a>
+    </div>
+  </article>
+
+  <article class="card">
+    <h3>Bad Energy Repeller</h3>
+    <p>Grounding room.</p>
+    <div class="row">
+      <a class="btn btnPrimary" href="https://monica.im/home/chat/bad-energy-repeller/cHbp7x1T" target="_blank">Open</a>
+      <a class="btn" href="#join">Join / Unlock</a>
+    </div>
+  </article>
+</section>
+
+<div id="join" class="sectionLabel">📦 Join</div>
+
+<section class="grid">
+  <article class="card" style="grid-column:span 12">
+    <h3>Monthly Access</h3>
+    <p>$5/month. Cancel anytime.</p>
+    <div class="row">
+      <a class="btn btnPrimary" href="https://www.paypal.com/ncp/payment/DCFGC5QQVL6MQ" target="_blank">Open PayPal</a>
+    </div>
+  </article>
+</section>
+
+<div id="links" class="sectionLabel">📦 Links</div>
+
+<section class="grid">
+  <article class="card">
+    <h3>Primary Hub</h3>
+    <p>Your current live hub.</p>
+    <div class="row">
+      <a class="btn btnPrimary" href="https://get-creative-now.vercel.app" target="_blank">Open</a>
+    </div>
+  </article>
+
+  <article class="card">
+    <h3>Surfshark</h3>
+    <p>Privacy & Security.</p>
+    <div class="row">
+      <a class="btn btnPrimary" href="https://links.surfsharkbiz.com/s/c/EVdqWVYjFX1QAHAltMrI1tqbCUbyyoPGEXJddmjYSl7dJ0YPVDioThKw2cP4yeBQ6YfCxBKLvJcnk5wHt2ILMfHS-x-MuTY9VApyF7n9LWzDysNp6EIRU4FpoMyt9h-W_Lxpi0eINJfX663vIsJOrS1P4_GnE9rw4Mh0aE6V5dIPWSKfoYJXAIr_T3Blhgu8IqPtIldgADBlxVEcYgujqShxiw1Bl5ImBPd8WTjsnS-Z023YrwzRBMrqs_hl8Hc5mmfbnNEGxWs9utwS86r4QcpxzjH9zZ7Pu6CwoyE6qfQXwu16nxpSNqmsk5BWd_x1vRa5kjnWQuszhDGecTJo7cPhziBTf5tkjZoPOxrpdI1OPTjp24QEAeNq-tkHjEcFucOX-YH_bRZzXp66o4V2dwUXM7KsovCZR9IJLBhb6ds3YUhdBgi1MfgOJwqOJkzzHQraDtBaoouxKpnLJ-6QZEDyIQVzuyF1rFdcXfYh9S3_/ZUIrRiPXvoZdQMB42GsFJ2_K9w_k2d0l/17" target="_blank">Open</a>
+    </div>
+  </article>
+</section>
+
+<footer>
+  Taurus Hub · calm navigation · no tracking
+</footer>
+
+</main>
+
+</body>
+</html>
