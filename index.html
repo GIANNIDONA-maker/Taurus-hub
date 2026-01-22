@@ -1,4 +1,3 @@
-```html
 <!doctype html>
 <html lang="en">
 <head>
@@ -7,20 +6,6 @@
   <title>GIANNIDONA — Hub</title>
   <meta name="description" content="A calm hub. Choose a room. No hype." />
 
-  <!-- Dark UI hint -->
-  <meta name="color-scheme" content="dark" />
-
-  <!-- CSP hardening (sealed: no external fetches; inline CSS allowed) -->
-  <meta http-equiv="Content-Security-Policy"
-        content="default-src 'none';
-                 style-src 'self' 'unsafe-inline';
-                 img-src 'self';
-                 font-src 'self';
-                 connect-src 'none';
-                 frame-ancestors 'none';
-                 base-uri 'self';
-                 form-action 'self';" />
-
   <style>
     /* =========================================================
        GIANNIDONA — HUB (FULL FILE) + VISUAL UPGRADE (NO JS)
@@ -28,7 +13,8 @@
        - Monica remains primary: ./ai/
        - Surfshark stays routed via ./go/surfshark-a (canonical)
        - Payments only via ./join/
-       - Sealed: no optional asset fetches (removed /assets/portal.jpg)
+       - Sealed: no optional asset fetches (no /assets/portal.jpg)
+       - GitHub Pages safe: ALL INTERNAL LINKS ARE ./relative
        ========================================================= */
 
     :root{
@@ -41,17 +27,16 @@
       --muted: rgba(255,255,255,.72);
       --muted2: rgba(255,255,255,.55);
 
-      --brandA: #7c3aed; /* violet */
-      --brandB: #22c55e; /* green */
-      --brandC: #06b6d4; /* cyan */
-      --brandD: #f59e0b; /* amber */
+      --brandA: #7c3aed;
+      --brandB: #22c55e;
+      --brandC: #06b6d4;
+      --brandD: #f59e0b;
 
       --shadow: 0 18px 70px rgba(0,0,0,.62);
       --shadow2: 0 10px 30px rgba(0,0,0,.42);
 
       --r-lg: 22px;
       --r-md: 16px;
-      --r-sm: 12px;
 
       --pad: clamp(16px, 2.5vw, 26px);
       --max: 1100px;
@@ -75,12 +60,9 @@
     a:focus-visible{ outline: 2px solid rgba(255,255,255,.45); outline-offset: 3px; border-radius: 12px; }
 
     .skip-link{
-      position:absolute;
-      left:-999px;
-      top:10px;
+      position:absolute; left:-999px; top:10px;
       padding:10px 12px;
-      background:#000;
-      color:#fff;
+      background:#000; color:#fff;
       border-radius:12px;
       z-index:999;
       text-decoration:none;
@@ -121,7 +103,6 @@
       100% { transform: translate3d(-1.5%, -1%, 0) scale(1); }
     }
 
-    /* portal “gateway” background behind hero (sealed: gradients only, no external image) */
     .portalBg{
       position:absolute;
       inset: 78px -10px auto -10px;
@@ -181,12 +162,7 @@
       z-index:2;
     }
 
-    .brand{
-      display:flex;
-      align-items:center;
-      gap: 12px;
-      min-width: 240px;
-    }
+    .brand{ display:flex; align-items:center; gap: 12px; min-width: 240px; }
     .badge{
       width: 44px; height: 44px;
       border-radius: 14px;
@@ -200,11 +176,7 @@
     .brandName{ font-weight: 900; letter-spacing:.3px; font-size: 15px; }
     .brandTag{ color: var(--muted2); font-size: 12.5px; margin-top: 4px; }
 
-    .pills{
-      display:flex; flex-wrap:wrap;
-      gap: 10px;
-      justify-content:flex-end;
-    }
+    .pills{ display:flex; flex-wrap:wrap; gap: 10px; justify-content:flex-end; }
     .pill{
       padding: 9px 12px;
       border-radius: 999px;
@@ -271,7 +243,6 @@
       transform: translateZ(0);
       backdrop-filter: blur(10px);
     }
-
     .card::before{
       content:"";
       position:absolute;
@@ -308,17 +279,10 @@
       background: rgba(255,255,255,.06);
       border: 1px solid rgba(255,255,255,.10);
     }
-    .cardSub{
-      color: var(--muted2);
-      font-size: 12.5px;
-      margin-top:2px;
-    }
+    .cardSub{ color: var(--muted2); font-size: 12.5px; margin-top:2px; }
     .cardBody{ padding: 14px 16px 16px; position:relative; z-index:1; }
 
-    .btnRow{
-      display:flex; flex-wrap:wrap;
-      gap: 10px;
-    }
+    .btnRow{ display:flex; flex-wrap:wrap; gap: 10px; }
 
     .btn{
       display:inline-flex;
@@ -345,7 +309,6 @@
       box-shadow: 0 18px 46px rgba(0,0,0,.35);
     }
     .btn:active{ transform: translateY(0px); }
-
     .btn::after{
       content:"";
       position:absolute;
@@ -360,10 +323,7 @@
       border-color: rgba(255,255,255,.28);
       box-shadow: 0 0 0 4px rgba(6,182,212,.10);
     }
-    .btn:active::after{
-      opacity:1;
-      transform: scale(1);
-    }
+    .btn:active::after{ opacity:1; transform: scale(1); }
 
     .btnPrimary{
       background: linear-gradient(135deg, rgba(124,58,237,.95), rgba(6,182,212,.85));
@@ -390,13 +350,7 @@
       border: 1px solid rgba(255,255,255,.14);
     }
 
-    .list{
-      display:flex;
-      flex-direction:column;
-      gap: 10px;
-      margin: 0; padding: 0;
-      list-style:none;
-    }
+    .list{ display:flex; flex-direction:column; gap: 10px; margin: 0; padding: 0; list-style:none; }
     .item{
       display:flex;
       align-items:flex-start;
@@ -409,6 +363,7 @@
     }
     .item b{ font-weight: 900; }
     .item small{ color: var(--muted2); display:block; margin-top:3px; line-height:1.3; }
+
     .tag{
       padding: 7px 10px;
       border-radius: 999px;
@@ -444,9 +399,7 @@
       body::before,
       .portalBg::before,
       .portalBg::after,
-      .hero h1{
-        animation: none !important;
-      }
+      .hero h1{ animation: none !important; }
       .btn, .btn:hover{ transition:none !important; }
     }
   </style>
@@ -458,7 +411,7 @@
   <main class="wrap" id="main">
     <div class="portalBg" aria-hidden="true"></div>
 
-    <div class="topbar" role="navigation" aria-label="Primary navigation">
+    <div class="topbar">
       <div class="brand">
         <div class="badge" aria-hidden="true">GD</div>
         <div class="brandText">
@@ -485,7 +438,7 @@
           <div>
             <div class="cardTitle">
               <span class="icon" aria-hidden="true">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                   <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8Z" stroke="white" stroke-width="1.8" stroke-linejoin="round"/>
                 </svg>
               </span>
@@ -498,14 +451,15 @@
 
         <div class="cardBody">
           <div class="btnRow">
-            <a class="btn" href="./ai/">Enter Monica <span aria-hidden="true">→</span></a>
+            <!-- INTERNAL LINKS MUST BE ./relative for GitHub Pages subpath -->
+            <a class="btn" href="./ai/">Open Monica <span aria-hidden="true">→</span></a>
 
             <!-- CANONICAL SURFSHARK CTA — DO NOT CHANGE (routes via ./go/surfshark-a) -->
             <a class="btn btnPrimary"
                href="./go/surfshark-a"
                target="_blank"
                rel="noopener"
-               aria-label="Open Surfshark Antivirus deal in a new tab"
+               aria-label="Open Surfshark deal in a new tab"
                data-cta="surfshark"
                data-cta-role="primary">
               Open Surfshark <span aria-hidden="true">↗</span>
@@ -513,6 +467,11 @@
 
             <a class="btn" href="./tools/">Tools Hub <span aria-hidden="true">→</span></a>
             <a class="btn" href="./digistore/">Digistore Shelf <span aria-hidden="true">→</span></a>
+
+            <!-- EXTERNAL APP LINK (VERCEL) -->
+            <a class="btn" href="https://get-creative-now.vercel.app" target="_blank" rel="noopener">
+              Get Creative Now <span aria-hidden="true">↗</span>
+            </a>
 
             <a class="btn btnAmber" href="./join/">Join / Unlock <span aria-hidden="true">→</span></a>
           </div>
@@ -552,7 +511,7 @@
           <div>
             <div class="cardTitle">
               <span class="icon" aria-hidden="true">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                   <path d="M8 3h8v18H8V3Z" stroke="white" stroke-width="1.8" />
                   <path d="M16 12h5v9h-5" stroke="white" stroke-width="1.8" stroke-linecap="round"/>
                   <path d="M12.5 12h0.01" stroke="white" stroke-width="3" stroke-linecap="round"/>
@@ -585,6 +544,14 @@
 
             <li class="item">
               <div>
+                <b>Get Creative Now</b>
+                <small>External app (Vercel).</small>
+              </div>
+              <a class="btn" href="https://get-creative-now.vercel.app" target="_blank" rel="noopener" style="padding:9px 10px; min-height:38px;">Open ↗</a>
+            </li>
+
+            <li class="item">
+              <div>
                 <b>Join / Unlock</b>
                 <small>Single source of truth for payments.</small>
               </div>
@@ -612,9 +579,10 @@
         <a href="./tools/">Tools</a>
         &nbsp;•&nbsp;
         <a href="./digistore/">Digistore</a>
+        &nbsp;•&nbsp;
+        <a href="https://get-creative-now.vercel.app" target="_blank" rel="noopener">Get Creative Now</a>
       </div>
     </div>
   </main>
 </body>
 </html>
-```
