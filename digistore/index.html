@@ -3,34 +3,786 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Digistore — GIANNIDONA</title>
+  <title>GIANNIDONA — Digistore</title>
+
+  <!-- Your existing stylesheet (path adjusted for /digistore/) -->
   <link rel="stylesheet" href="../assets/app.css" />
+
+  <style>
+    /* ==========================================================
+      AWESOME GLOW • 3D THEME • ALWAYS ON (DIGISTORE)
+      - Matches tools/index.html + index.html vibe
+      - Works standalone even if app.css is minimal
+    ========================================================== */
+
+    :root{
+      --bg0:#070A0F;
+      --bg1:#0B1020;
+
+      --text:#EAF0FF;
+      --muted:rgba(234,240,255,.72);
+      --muted2:rgba(234,240,255,.55);
+
+      --accent:#7C5CFF;   /* purple */
+      --accent2:#2FE6B8;  /* mint */
+      --accent3:#00FF96;  /* neon green */
+
+      --stroke:rgba(255,255,255,.10);
+      --stroke2:rgba(255,255,255,.16);
+
+      --shadow: 0 18px 60px rgba(0,0,0,.55);
+      --shadow2: 0 10px 26px rgba(0,0,0,.38);
+
+      --r12: 12px;
+      --r16: 16px;
+      --r20: 20px;
+
+      --glowA: rgba(124,92,255,.62);
+      --glowB: rgba(47,230,184,.52);
+      --glowC: rgba(0,255,150,.55);
+      --glowW: rgba(255,255,255,.10);
+    }
+
+    *{ box-sizing: border-box; }
+    html, body{ height: 100%; }
+
+    body{
+      margin:0;
+      color: var(--text);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+
+      background:
+        radial-gradient(900px 520px at 16% 10%, rgba(124,92,255,.18), transparent 60%),
+        radial-gradient(880px 520px at 88% 18%, rgba(47,230,184,.14), transparent 58%),
+        radial-gradient(760px 560px at 50% 92%, rgba(0,255,150,.10), transparent 62%),
+        linear-gradient(180deg, var(--bg0), var(--bg1));
+
+      overflow-x: hidden;
+    }
+
+    .wrap{
+      max-width: 1150px;
+      margin: 0 auto;
+      padding: 22px 16px 28px;
+      position: relative;
+      perspective: 1000px;
+    }
+
+    .skip{
+      position:absolute; left:-999px; top:auto;
+      width:1px; height:1px; overflow:hidden;
+    }
+    .skip:focus{
+      left:16px; top:16px;
+      width:auto; height:auto;
+      padding:10px 12px;
+      border-radius: 12px;
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.18);
+      z-index: 9999;
+    }
+
+    /* TOP */
+    .top{
+      position: relative;
+      padding: 18px 0 14px;
+      margin-bottom: 18px;
+      transform-style: preserve-3d;
+    }
+
+    .topShell{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      padding: 14px 14px;
+      border-radius: var(--r16);
+
+      background:
+        radial-gradient(1200px 240px at 20% 0%, rgba(124,92,255,.26), transparent 58%),
+        radial-gradient(900px 240px at 88% 0%, rgba(47,230,184,.14), transparent 58%),
+        linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
+
+      border: 1px solid rgba(255,255,255,.12);
+      box-shadow:
+        var(--shadow2),
+        0 0 28px rgba(124,92,255,.12),
+        0 0 26px rgba(47,230,184,.10);
+
+      backdrop-filter: blur(12px);
+      transform: translateZ(10px);
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    .topShell::before{
+      content:"";
+      position:absolute; inset:-2px;
+      pointer-events:none;
+      background:
+        conic-gradient(from 220deg at 50% 50%,
+          rgba(124,92,255,.55),
+          rgba(47,230,184,.40),
+          rgba(0,255,150,.25),
+          rgba(255,255,255,.10),
+          rgba(124,92,255,.55)
+        );
+      filter: blur(16px);
+      opacity: .45;
+      mix-blend-mode: screen;
+      z-index: 0;
+      animation: edgeFlow 7s linear infinite;
+    }
+
+    .brand, .nav{ position: relative; z-index: 1; }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      min-width: 220px;
+    }
+
+    .mark{
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      background:
+        radial-gradient(circle at 30% 30%, rgba(255,255,255,.30), transparent 55%),
+        linear-gradient(135deg, rgba(124,92,255,.92), rgba(47,230,184,.58));
+      box-shadow:
+        0 10px 22px rgba(0,0,0,.35),
+        0 0 26px rgba(124,92,255,.18),
+        0 0 18px rgba(47,230,184,.14),
+        0 0 0 1px rgba(255,255,255,.16) inset;
+      position: relative;
+      transform: translateZ(12px);
+    }
+    .mark::after{
+      content: "GD";
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      font-weight: 900;
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      color: rgba(255, 255, 255, 0.9);
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+      pointer-events:none;
+    }
+
+    .brandtext .name{
+      font-weight: 800;
+      letter-spacing: .06em;
+      font-size: 14px;
+      text-transform: uppercase;
+      color: var(--text);
+    }
+    .brandtext .tag{
+      font-size: 12px;
+      color: var(--muted2);
+      margin-top: 2px;
+    }
+
+    .nav{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      justify-content:flex-end;
+    }
+
+    .chip{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding: 10px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.12);
+      color: var(--muted);
+      text-decoration:none;
+      transition: transform .18s ease, background .18s ease, border-color .18s ease, box-shadow .18s ease;
+      transform: translateZ(6px);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .chip::after{
+      content:"";
+      position:absolute; inset:-1px;
+      background: linear-gradient(120deg, rgba(255,255,255,.00), rgba(255,255,255,.10), rgba(255,255,255,.00));
+      transform: translateX(-60%);
+      opacity: .35;
+      pointer-events:none;
+      transition: transform .35s ease, opacity .35s ease;
+    }
+
+    .chip:hover{
+      transform: translateY(-2px) translateZ(10px);
+      background: rgba(255,255,255,.08);
+      border-color: rgba(255,255,255,.18);
+      color: var(--text);
+      box-shadow:
+        0 14px 28px rgba(0,0,0,.30),
+        0 0 18px rgba(124,92,255,.16),
+        0 0 16px rgba(47,230,184,.12);
+    }
+    .chip:hover::after{ transform: translateX(60%); opacity: .55; }
+    .chip:active{ transform: translateY(0px) translateZ(6px) scale(.99); }
+    .chip:focus-visible{
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(124,92,255,.35), 0 0 24px rgba(124,92,255,.22);
+      border-color: rgba(124,92,255,.55);
+    }
+
+    /* HERO */
+    .hero{
+      position: relative;
+      border-radius: var(--r20);
+      overflow: hidden;
+      padding: 28px 18px;
+      border: 1px solid rgba(255,255,255,.12);
+
+      background:
+        radial-gradient(1100px 520px at 10% 10%, rgba(124,92,255,.20), transparent 62%),
+        radial-gradient(940px 520px at 90% 20%, rgba(47,230,184,.12), transparent 58%),
+        linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.03));
+
+      box-shadow:
+        var(--shadow),
+        0 0 42px rgba(124,92,255,.10),
+        0 0 34px rgba(47,230,184,.08);
+
+      backdrop-filter: blur(10px);
+      isolation: isolate;
+      transform-style: preserve-3d;
+    }
+
+    .hero.hasImage::before{
+      content:"";
+      position:absolute; inset:0;
+      background:
+        linear-gradient(90deg, rgba(7,10,15,.86), rgba(7,10,15,.34), rgba(7,10,15,.78)),
+        url("../assets/hero.jpg") center/cover no-repeat;
+      opacity: .50;
+      pointer-events:none;
+      filter: saturate(1.03) contrast(1.02);
+      z-index: 0;
+    }
+
+    .hero::after{
+      content:"";
+      position:absolute; inset:-48px;
+      z-index: 0;
+      pointer-events:none;
+      background:
+        radial-gradient(560px 300px at 16% 18%, var(--glowA), transparent 60%),
+        radial-gradient(560px 300px at 84% 22%, var(--glowB), transparent 60%),
+        radial-gradient(560px 340px at 55% 82%, rgba(0,255,150,.22), transparent 65%),
+        conic-gradient(from 210deg at 50% 50%,
+          rgba(124,92,255,.12),
+          rgba(47,230,184,.10),
+          rgba(255,255,255,.06),
+          rgba(124,92,255,.12)
+        );
+      filter: blur(16px) saturate(1.30) contrast(1.06);
+      opacity: .95;
+      mix-blend-mode: screen;
+      animation: heroAurora 6.2s ease-in-out infinite;
+    }
+
+    .heroInner{
+      position: relative;
+      z-index: 1;
+      max-width: 980px;
+      margin: 0 auto;
+      display:grid;
+      gap: 14px;
+      align-items:center;
+      padding: 10px 6px;
+      transform: translateZ(12px);
+    }
+
+    .heroInner::before{
+      content:"";
+      position:absolute; inset:-70px;
+      z-index: -1;
+      pointer-events:none;
+      background:
+        repeating-linear-gradient(
+          115deg,
+          rgba(255,255,255,.00) 0px,
+          rgba(255,255,255,.00) 18px,
+          rgba(255,255,255,.06) 22px,
+          rgba(255,255,255,.00) 28px
+        ),
+        radial-gradient(720px 460px at 30% 30%, rgba(124,92,255,.12), transparent 72%),
+        radial-gradient(720px 460px at 75% 35%, rgba(47,230,184,.10), transparent 72%);
+      opacity: .70;
+      mix-blend-mode: screen;
+      transform: translate3d(0,0,0);
+      animation: lightSweep 3.0s linear infinite;
+    }
+
+    .heroKicker{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      width: fit-content;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.12);
+      color: var(--muted);
+      font-size: 12px;
+      box-shadow:
+        0 10px 22px rgba(0,0,0,.25),
+        0 0 18px rgba(124,92,255,.10);
+    }
+
+    .heroTitle{
+      font-size: clamp(30px, 4.4vw, 50px);
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      margin: 0;
+      color: var(--text);
+      text-shadow:
+        0 12px 34px rgba(0,0,0,.45),
+        0 0 18px rgba(124,92,255,.10);
+    }
+
+    .heroSub{
+      margin: 0;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.6;
+      max-width: 70ch;
+    }
+
+    .heroCTAs{
+      display:flex;
+      flex-wrap:wrap;
+      gap: 10px;
+      margin-top: 6px;
+    }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      padding: 12px 14px;
+      border-radius: 12px;
+      text-decoration:none;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      color: var(--text);
+      transition: transform .18s ease, background .18s ease, border-color .18s ease, box-shadow .18s ease;
+      min-width: 140px;
+      position: relative;
+      overflow: hidden;
+      transform: translateZ(8px);
+    }
+
+    .btn::after{
+      content:"";
+      position:absolute; inset:-2px;
+      background: linear-gradient(120deg, rgba(255,255,255,.00), rgba(255,255,255,.14), rgba(255,255,255,.00));
+      transform: translateX(-60%);
+      opacity: .25;
+      pointer-events:none;
+      transition: transform .35s ease, opacity .35s ease;
+    }
+
+    .btn:hover{
+      transform: translateY(-2px) translateZ(12px);
+      background: rgba(255,255,255,.09);
+      border-color: rgba(255,255,255,.20);
+      box-shadow:
+        0 18px 40px rgba(0,0,0,.35),
+        0 0 22px rgba(124,92,255,.14),
+        0 0 18px rgba(47,230,184,.10);
+    }
+    .btn:hover::after{ transform: translateX(60%); opacity: .45; }
+    .btn:active{ transform: translateY(0px) translateZ(8px) scale(.99); }
+    .btn:focus-visible{
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(124,92,255,.35), 0 0 26px rgba(124,92,255,.22);
+      border-color: rgba(124,92,255,.55);
+    }
+
+    .btn.primary{
+      background:
+        radial-gradient(180px 90px at 25% 20%, rgba(255,255,255,.22), transparent 60%),
+        linear-gradient(135deg, rgba(124,92,255,.98), rgba(47,230,184,.28));
+      border-color: rgba(124,92,255,.55);
+      color: #0b0f14;
+      font-weight: 900;
+      box-shadow:
+        0 18px 44px rgba(0,0,0,.28),
+        0 0 26px rgba(124,92,255,.22),
+        0 0 20px rgba(47,230,184,.14);
+    }
+
+    .heroMeta{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top: 6px;
+      color: var(--muted2);
+      font-size: 12px;
+    }
+
+    .metaPill{
+      padding: 8px 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.12);
+      box-shadow: 0 10px 22px rgba(0,0,0,.22);
+    }
+
+    /* STORE GRID */
+    .grid{
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 18px;
+      padding: 20px 4px 4px;
+    }
+
+    .card{
+      position: relative;
+      overflow: hidden;
+      border-radius: 16px;
+      padding: 18px;
+      border: 1px solid rgba(255,255,255,.12);
+
+      background:
+        radial-gradient(240px 160px at 20% 20%, rgba(124,92,255,.10), transparent 70%),
+        radial-gradient(240px 160px at 80% 25%, rgba(47,230,184,.08), transparent 70%),
+        linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+
+      box-shadow:
+        0 16px 50px rgba(0,0,0,.38),
+        0 0 26px rgba(124,92,255,.08);
+
+      transform-style: preserve-3d;
+      transition: transform .20s ease, box-shadow .20s ease, border-color .20s ease, background .20s ease;
+    }
+
+    .card::before{
+      content:"";
+      position:absolute; inset:-2px;
+      pointer-events:none;
+      background:
+        conic-gradient(from 210deg at 50% 50%,
+          rgba(124,92,255,.50),
+          rgba(47,230,184,.34),
+          rgba(0,255,150,.22),
+          rgba(255,255,255,.10),
+          rgba(124,92,255,.50)
+        );
+      filter: blur(18px);
+      opacity: .35;
+      mix-blend-mode: screen;
+      z-index: 0;
+      transition: opacity .25s ease;
+    }
+
+    .card::after{
+      content:"";
+      position:absolute; inset:0;
+      pointer-events:none;
+      background: radial-gradient(420px 240px at 25% 15%, rgba(255,255,255,.10), transparent 65%);
+      opacity: .70;
+      z-index: 0;
+    }
+
+    .card > *{ position: relative; z-index: 1; transform: translateZ(10px); }
+
+    .card:hover{
+      transform: translateY(-10px) rotateX(3deg) rotateY(-3deg);
+      border-color: rgba(255,255,255,.18);
+      box-shadow:
+        0 26px 70px rgba(0,0,0,.45),
+        0 0 34px rgba(124,92,255,.14),
+        0 0 28px rgba(47,230,184,.10);
+    }
+    .card:hover::before{ opacity: .60; }
+
+    .card h2{
+      margin: 0 0 8px 0;
+      font-size: 18px;
+      letter-spacing: -0.01em;
+      text-shadow:
+        0 10px 28px rgba(0,0,0,.45),
+        0 0 14px rgba(0,255,150,.10);
+    }
+
+    .muted{ color: var(--muted); margin: 0 0 10px 0; }
+
+    .list{
+      margin: 10px 0 0 18px;
+      padding: 0;
+      color: rgba(234,240,255,.70);
+    }
+
+    .list li{
+      padding: 8px 0;
+      transition: transform .18s ease, color .18s ease;
+    }
+
+    .card:hover .list li{
+      transform: translateX(8px);
+      color: rgba(0,255,150,.95);
+      text-shadow: 0 0 14px rgba(0,255,150,.12);
+    }
+
+    .priceRow{
+      display:flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 10px;
+      margin-top: 10px;
+      padding-top: 12px;
+      border-top: 1px solid rgba(255,255,255,.10);
+    }
+
+    .price{
+      font-weight: 900;
+      letter-spacing: -0.01em;
+      color: rgba(234,240,255,.92);
+      text-shadow: 0 0 16px rgba(124,92,255,.12);
+    }
+
+    .cardActions{
+      margin-top: 12px;
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+
+    .card .btn.primary{
+      background:
+        radial-gradient(200px 100px at 25% 18%, rgba(255,255,255,.25), transparent 60%),
+        linear-gradient(45deg, rgba(0,255,150,.98), rgba(47,230,184,.66));
+      border: 1px solid rgba(0,255,150,.30);
+      color: #071016;
+      box-shadow:
+        0 18px 42px rgba(0,0,0,.30),
+        0 0 18px rgba(0,255,150,.24),
+        0 0 30px rgba(0,255,150,.16);
+      animation: glowPulse 1.9s ease-in-out infinite;
+      min-width: 0;
+    }
+
+    .btn.ghost{
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.14);
+      color: var(--text);
+      min-width: 0;
+    }
+
+    /* FOOTER */
+    .footer{
+      margin-top: 16px;
+      padding: 18px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: linear-gradient(135deg, rgba(255,255,255,.05), rgba(255,255,255,.03));
+      box-shadow: 0 -5px 20px rgba(0,0,0,.35);
+      text-align: center;
+    }
+
+    .footer a{
+      color: rgba(0,255,150,.95);
+      text-decoration:none;
+      margin: 0 10px;
+      transition: text-shadow .18s ease, color .18s ease;
+    }
+    .footer a:hover{
+      color: #BFFFE6;
+      text-shadow: 0 0 18px rgba(0,255,150,.30);
+    }
+
+    /* ANIMATIONS */
+    @keyframes heroAurora{
+      0%,100% { transform: translate3d(0,0,0) scale(1); opacity: .85; }
+      50%     { transform: translate3d(0,-6px,0) scale(1.04); opacity: 1; }
+    }
+
+    @keyframes lightSweep{
+      0%   { transform: translate3d(-7%, -2%, 0) rotate(-1deg); opacity: .55; }
+      50%  { transform: translate3d( 7%,  2%, 0) rotate( 1deg); opacity: .82; }
+      100% { transform: translate3d(-7%, -2%, 0) rotate(-1deg); opacity: .55; }
+    }
+
+    @keyframes edgeFlow{
+      0%   { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    @keyframes glowPulse{
+      0%, 100% {
+        box-shadow:
+          0 18px 42px rgba(0,0,0,.30),
+          0 0 16px rgba(0,255,150,.22),
+          0 0 26px rgba(0,255,150,.14);
+      }
+      50% {
+        box-shadow:
+          0 22px 52px rgba(0,0,0,.34),
+          0 0 22px rgba(0,255,150,.30),
+          0 0 38px rgba(0,255,150,.20);
+      }
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 860px){
+      .topShell{ flex-direction: column; align-items: stretch; }
+      .nav{ justify-content:flex-start; }
+      .brand{ min-width: unset; }
+      .grid{ padding: 18px 0 4px; }
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      .topShell::before,
+      .hero::after,
+      .heroInner::before,
+      .card::before,
+      .card .btn.primary{
+        animation: none !important;
+      }
+      .chip, .btn, .card, .list li{
+        transition: none !important;
+      }
+    }
+  </style>
 </head>
 
 <body>
-  <main class="wrap">
-    <header class="header">
-      <h1>Digistore Hub</h1>
-      <p>Verified digital tools and resources.</p>
+  <a class="skip" href="#content">Skip to content</a>
+
+  <main class="wrap" id="content">
+    <header class="top" aria-label="Top navigation">
+      <div class="topShell">
+        <div class="brand">
+          <div class="mark" aria-hidden="true"></div>
+          <div class="brandtext">
+            <div class="name">GIANNIDONA</div>
+            <div class="tag">Digistore • Premium downloads • Simple checkout</div>
+          </div>
+        </div>
+
+        <nav class="nav" aria-label="Primary">
+          <a class="chip" href="../">Home</a>
+          <a class="chip" href="./">Digistore</a>
+          <a class="chip" href="../tools/">Tools</a>
+          <a class="chip" href="../join/">Join / Unlock</a>
+        </nav>
+      </div>
     </header>
 
-    <section class="grid">
-      <a class="card" href="#" target="_blank" rel="noopener">
-        <h3>Soundview</h3>
-        <p>High-value summaries of the world’s best business books.</p>
-        <span class="cta">View</span>
-      </a>
+    <section class="hero hasImage" aria-label="Digistore hero">
+      <div class="heroInner">
+        <div class="heroKicker">
+          <span aria-hidden="true">●</span>
+          <span>Curated • Instant access • Clean downloads</span>
+        </div>
 
-      <a class="card" href="#" target="_blank" rel="noopener">
-        <h3>Medicinal Seed Kit</h3>
-        <p>Practical knowledge for resilient, self-reliant living.</p>
-        <span class="cta">View</span>
-      </a>
+        <h1 class="heroTitle">Digistore</h1>
+
+        <p class="heroSub">
+          Digital products, templates, and packs. Buy once, download instantly.
+          (Replace these demo products with your real offers.)
+        </p>
+
+        <div class="heroCTAs">
+          <a class="btn primary" href="#store">Browse Products</a>
+          <a class="btn" href="../join/">Join / Unlock</a>
+        </div>
+
+        <div class="heroMeta" aria-label="Store rules">
+          <span class="metaPill">Instant delivery</span>
+          <span class="metaPill">Secure payments</span>
+          <span class="metaPill">No accounts</span>
+          <span class="metaPill">Education-only</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="grid" id="store" aria-label="Product list">
+      <!-- Replace cards with your real products & links -->
+      <article class="card">
+        <h2>Starter Pack</h2>
+        <p class="muted">Templates + quickstart docs.</p>
+        <ul class="list">
+          <li>Instant download</li>
+          <li>Clear instructions</li>
+          <li>Lifetime access</li>
+        </ul>
+
+        <div class="priceRow">
+          <div class="price">$9</div>
+          <div class="muted2">One-time</div>
+        </div>
+
+        <div class="cardActions">
+          <a class="btn primary" href="../join/">Buy / Unlock →</a>
+          <a class="btn ghost" href="#">Details</a>
+        </div>
+      </article>
+
+      <article class="card">
+        <h2>Creator Bundle</h2>
+        <p class="muted">More tools, more assets, more value.</p>
+        <ul class="list">
+          <li>Updated monthly</li>
+          <li>Extra templates</li>
+          <li>Bonus resources</li>
+        </ul>
+
+        <div class="priceRow">
+          <div class="price">$19</div>
+          <div class="muted2">One-time</div>
+        </div>
+
+        <div class="cardActions">
+          <a class="btn primary" href="../join/">Buy / Unlock →</a>
+          <a class="btn ghost" href="#">Details</a>
+        </div>
+      </article>
+
+      <article class="card">
+        <h2>Pro Kit</h2>
+        <p class="muted">Full suite + priority updates.</p>
+        <ul class="list">
+          <li>Everything included</li>
+          <li>Priority releases</li>
+          <li>Best value</li>
+        </ul>
+
+        <div class="priceRow">
+          <div class="price">$39</div>
+          <div class="muted2">One-time</div>
+        </div>
+
+        <div class="cardActions">
+          <a class="btn primary" href="../join/">Buy / Unlock →</a>
+          <a class="btn ghost" href="#">Details</a>
+        </div>
+      </article>
     </section>
 
     <footer class="footer">
-      <a href="../">Home</a>
-      <a href="../join/">Join / Unlock</a>
+      <div>
+        <span>GIANNIDONA — calm, privacy-first, human-first.</span>
+      </div>
+      <div style="margin-top:10px;">
+        <a href="./">Digistore</a>
+        <a href="../tools/">Tools</a>
+        <a href="../join/">Join</a>
+      </div>
     </footer>
   </main>
 </body>
