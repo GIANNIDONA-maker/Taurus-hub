@@ -1,189 +1,620 @@
+```html
 <!doctype html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Taurus Hub</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GIANNIDONA — Hub</title>
+  <meta name="description" content="A calm hub. Choose a room. No hype." />
+
+  <!-- Dark UI hint -->
+  <meta name="color-scheme" content="dark" />
+
+  <!-- CSP hardening (sealed: no external fetches; inline CSS allowed) -->
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'none';
+                 style-src 'self' 'unsafe-inline';
+                 img-src 'self';
+                 font-src 'self';
+                 connect-src 'none';
+                 frame-ancestors 'none';
+                 base-uri 'self';
+                 form-action 'self';" />
+
   <style>
+    /* =========================================================
+       GIANNIDONA — HUB (FULL FILE) + VISUAL UPGRADE (NO JS)
+       - No tracking, no external fonts, no frameworks
+       - Monica remains primary: ./ai/
+       - Surfshark stays routed via ./go/surfshark-a (canonical)
+       - Payments only via ./join/
+       - Sealed: no optional asset fetches (removed /assets/portal.jpg)
+       ========================================================= */
+
     :root{
-      --bg:#0b0f17;
-      --panel:rgba(255,255,255,.06);
-      --panel2:rgba(255,255,255,.08);
-      --text:rgba(255,255,255,.92);
-      --muted:rgba(255,255,255,.72);
-      --muted2:rgba(255,255,255,.58);
-      --border:rgba(255,255,255,.12);
-      --shadow: 0 18px 60px rgba(0,0,0,.55);
+      --bg: #070a14;
+      --panel: rgba(255,255,255,.07);
+      --panel2: rgba(255,255,255,.10);
+      --stroke: rgba(255,255,255,.12);
+
+      --text: rgba(255,255,255,.92);
+      --muted: rgba(255,255,255,.72);
+      --muted2: rgba(255,255,255,.55);
+
+      --brandA: #7c3aed; /* violet */
+      --brandB: #22c55e; /* green */
+      --brandC: #06b6d4; /* cyan */
+      --brandD: #f59e0b; /* amber */
+
+      --shadow: 0 18px 70px rgba(0,0,0,.62);
+      --shadow2: 0 10px 30px rgba(0,0,0,.42);
+
+      --r-lg: 22px;
+      --r-md: 16px;
+      --r-sm: 12px;
+
+      --pad: clamp(16px, 2.5vw, 26px);
+      --max: 1100px;
     }
-    *{box-sizing:border-box}
-    html,body{height:100%}
+
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
     body{
       margin:0;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      background: radial-gradient(1200px 800px at 20% 0%, rgba(140,110,255,.20), transparent 55%),
-                  radial-gradient(900px 700px at 80% 10%, rgba(0,255,200,.16), transparent 55%),
-                  radial-gradient(1000px 800px at 50% 100%, rgba(255,70,170,.14), transparent 60%),
-                  var(--bg);
-      color:var(--text);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(900px 500px at 20% -10%, rgba(124,58,237,.35), transparent 60%),
+        radial-gradient(900px 500px at 85% 10%, rgba(6,182,212,.25), transparent 55%),
+        radial-gradient(900px 600px at 60% 110%, rgba(34,197,94,.18), transparent 60%),
+        linear-gradient(180deg, #050711 0%, #070a14 50%, #050711 100%);
       overflow-x:hidden;
     }
-    .hero{padding:48px 18px 18px}
-    .heroInner{
-      max-width:1100px;margin:0 auto;border:1px solid var(--border);
-      background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.04));
-      border-radius:24px;box-shadow:var(--shadow);overflow:hidden
+
+    a{ color:inherit; text-decoration:none; }
+    a:focus-visible{ outline: 2px solid rgba(255,255,255,.45); outline-offset: 3px; border-radius: 12px; }
+
+    .skip-link{
+      position:absolute;
+      left:-999px;
+      top:10px;
+      padding:10px 12px;
+      background:#000;
+      color:#fff;
+      border-radius:12px;
+      z-index:999;
+      text-decoration:none;
     }
-    .cloud{
-      height:160px;
+    .skip-link:focus{
+      left:10px;
+      outline:2px solid rgba(255,255,255,.55);
+      outline-offset:2px;
+    }
+
+    .wrap{
+      width: min(var(--max), calc(100% - (var(--pad) * 2)));
+      margin: 0 auto;
+      padding: 28px 0 46px;
+      position:relative;
+      z-index:1;
+    }
+
+    /* ========= VISUAL UPGRADE LAYER (NO JS) ========= */
+
+    body::before{
+      content:"";
+      position: fixed;
+      inset: -45%;
+      pointer-events:none;
+      z-index:0;
       background:
-        radial-gradient(closest-side at 20% 45%, rgba(255,0,170,.55), transparent 60%),
-        radial-gradient(closest-side at 45% 40%, rgba(0,210,255,.55), transparent 60%),
-        radial-gradient(closest-side at 70% 55%, rgba(180,255,0,.40), transparent 60%),
-        radial-gradient(closest-side at 85% 35%, rgba(140,110,255,.55), transparent 62%),
-        radial-gradient(closest-side at 55% 75%, rgba(255,140,0,.40), transparent 62%),
-        linear-gradient(180deg, rgba(10,14,24,.15), rgba(10,14,24,.55));
-      animation:pulse 2.8s ease-in-out infinite
+        radial-gradient(circle at 50% 50%, rgba(124,58,237,.22), transparent 60%),
+        radial-gradient(circle at 30% 60%, rgba(34,197,94,.16), transparent 55%),
+        radial-gradient(circle at 70% 40%, rgba(6,182,212,.18), transparent 55%);
+      filter: blur(18px);
+      animation: slowDrift 22s linear infinite;
+      opacity:.95;
     }
-    @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.02)}}
-    .heroTop{padding:18px;display:flex;justify-content:space-between;gap:12px}
-    .brand{display:flex;gap:12px;align-items:center}
+    @keyframes slowDrift{
+      0%   { transform: translate3d(-1.5%, -1%, 0) scale(1); }
+      50%  { transform: translate3d( 1.5%,  1%, 0) scale(1.03); }
+      100% { transform: translate3d(-1.5%, -1%, 0) scale(1); }
+    }
+
+    /* portal “gateway” background behind hero (sealed: gradients only, no external image) */
+    .portalBg{
+      position:absolute;
+      inset: 78px -10px auto -10px;
+      height: 320px;
+      border-radius: 28px;
+      overflow:hidden;
+      z-index:0;
+      pointer-events:none;
+      border: 1px solid rgba(255,255,255,.08);
+      background:
+        radial-gradient(1000px 420px at 50% 60%, rgba(124,58,237,.20), transparent 60%),
+        radial-gradient(900px 420px at 65% 40%, rgba(6,182,212,.16), transparent 60%),
+        radial-gradient(800px 420px at 35% 45%, rgba(34,197,94,.12), transparent 60%),
+        linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+      box-shadow: var(--shadow2);
+      filter: saturate(1.05);
+    }
+    .portalBg::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background: linear-gradient(180deg, rgba(0,0,0,.15), rgba(0,0,0,.55));
+      opacity:.62;
+      mix-blend-mode: screen;
+      filter: contrast(1.05) saturate(1.15);
+      animation: portalPulse 6s ease-in-out infinite;
+    }
+    .portalBg::after{
+      content:"";
+      position:absolute;
+      inset:-2px;
+      background:
+        radial-gradient(900px 240px at 30% 10%, rgba(124,58,237,.22), transparent 60%),
+        radial-gradient(900px 240px at 70% 95%, rgba(6,182,212,.18), transparent 60%);
+      filter: blur(12px);
+      opacity:.75;
+      animation: portalGlow 7.5s ease-in-out infinite;
+    }
+    @keyframes portalPulse{
+      0%   { filter: brightness(1) saturate(1.15); transform: scale(1); }
+      50%  { filter: brightness(1.18) saturate(1.45); transform: scale(1.02); }
+      100% { filter: brightness(1) saturate(1.15); transform: scale(1); }
+    }
+    @keyframes portalGlow{
+      0%   { opacity:.65; transform: translateY(0); }
+      50%  { opacity:.85; transform: translateY(6px); }
+      100% { opacity:.65; transform: translateY(0); }
+    }
+
+    .topbar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 14px;
+      margin-bottom: 18px;
+      position:relative;
+      z-index:2;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap: 12px;
+      min-width: 240px;
+    }
     .badge{
-      width:44px;height:44px;border-radius:14px;display:grid;place-items:center;
-      font-weight:800;background:rgba(255,255,255,.10);border:1px solid var(--border)
+      width: 44px; height: 44px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, rgba(124,58,237,.95), rgba(6,182,212,.85));
+      box-shadow: var(--shadow2);
+      display:grid; place-items:center;
+      font-weight: 900;
+      letter-spacing: .5px;
     }
-    .title{font-size:22px;margin:0}
-    .sub{margin:6px 0 0;color:var(--muted);font-size:14px}
-    .pillRow{display:flex;gap:10px;flex-wrap:wrap;padding:14px 18px}
+    .brandText{ line-height: 1.1; }
+    .brandName{ font-weight: 900; letter-spacing:.3px; font-size: 15px; }
+    .brandTag{ color: var(--muted2); font-size: 12.5px; margin-top: 4px; }
+
+    .pills{
+      display:flex; flex-wrap:wrap;
+      gap: 10px;
+      justify-content:flex-end;
+    }
     .pill{
-      text-decoration:none;color:var(--text);border:1px solid var(--border);
-      background:rgba(255,255,255,.06);padding:10px 12px;border-radius:999px;font-size:13px
+      padding: 9px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.10);
+      color: var(--muted);
+      font-size: 13px;
+      backdrop-filter: blur(10px);
     }
-    .wrap{max-width:1100px;margin:0 auto;padding:18px}
-    .sectionLabel{margin:18px 0 12px;color:var(--muted);font-size:13px;text-transform:uppercase}
-    .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:14px}
+
+    .hero{
+      padding: 22px 18px;
+      border-radius: var(--r-lg);
+      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
+      border: 1px solid rgba(255,255,255,.10);
+      box-shadow: var(--shadow2);
+      margin-bottom: 18px;
+      position:relative;
+      z-index:2;
+      backdrop-filter: blur(10px);
+    }
+    .hero h1{
+      margin: 0 0 6px;
+      font-size: clamp(22px, 3.2vw, 34px);
+      letter-spacing: .2px;
+      background: linear-gradient(90deg, rgba(255,255,255,.92), rgba(6,182,212,.90), rgba(255,255,255,.92));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      background-size: 200% 100%;
+      animation: shimmer 5.5s ease-in-out infinite;
+    }
+    @keyframes shimmer{
+      0%   { background-position: 0% 50%; }
+      50%  { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    .hero p{
+      margin: 0;
+      color: var(--muted);
+      font-size: 14.5px;
+      max-width: 70ch;
+      line-height:1.45;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 14px;
+      position:relative;
+      z-index:2;
+    }
+    @media (max-width: 900px){
+      .grid{ grid-template-columns: 1fr; }
+    }
+
     .card{
-      grid-column:span 12;border:1px solid var(--border);
-      background:linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.04));
-      border-radius:18px;padding:16px
+      border-radius: var(--r-lg);
+      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
+      border: 1px solid rgba(255,255,255,.10);
+      box-shadow: var(--shadow2);
+      overflow:hidden;
+      position:relative;
+      transform: translateZ(0);
+      backdrop-filter: blur(10px);
     }
-    @media(min-width:860px){.card{grid-column:span 6}}
-    .row{display:flex;gap:10px;flex-wrap:wrap}
+
+    .card::before{
+      content:"";
+      position:absolute;
+      inset:-1px;
+      border-radius: var(--r-lg);
+      background:
+        radial-gradient(900px 220px at 30% 0%, rgba(124,58,237,.22), transparent 60%),
+        radial-gradient(700px 240px at 70% 100%, rgba(6,182,212,.18), transparent 60%);
+      opacity:.55;
+      pointer-events:none;
+      filter: blur(10px);
+    }
+
+    .cardHead{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding: 16px 16px 12px;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      position:relative;
+      z-index:1;
+    }
+    .cardTitle{
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      font-weight: 900;
+      letter-spacing:.2px;
+    }
+    .icon{
+      width: 34px; height: 34px;
+      border-radius: 12px;
+      display:grid; place-items:center;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.10);
+    }
+    .cardSub{
+      color: var(--muted2);
+      font-size: 12.5px;
+      margin-top:2px;
+    }
+    .cardBody{ padding: 14px 16px 16px; position:relative; z-index:1; }
+
+    .btnRow{
+      display:flex; flex-wrap:wrap;
+      gap: 10px;
+    }
+
     .btn{
-      display:inline-flex;align-items:center;justify-content:center;
-      padding:10px 12px;border-radius:12px;border:1px solid var(--border);
-      background:rgba(255,255,255,.06);color:var(--text);text-decoration:none;font-size:13px
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap: 8px;
+      padding: 11px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.06);
+      color: var(--text);
+      font-weight: 820;
+      font-size: 14px;
+      transition: transform .08s ease, background .12s ease, border-color .12s ease, box-shadow .12s ease;
+      min-height: 44px;
+      position:relative;
+      overflow:hidden;
+      -webkit-tap-highlight-color: transparent;
     }
-    .btnPrimary{background:rgba(255,255,255,.12)}
-    footer{margin-top:26px;padding:18px;border-top:1px solid rgba(255,255,255,.08);color:var(--muted2);font-size:12px;text-align:center}
+    .btn:hover{
+      transform: translateY(-1px);
+      background: rgba(255,255,255,.08);
+      border-color: rgba(255,255,255,.18);
+      box-shadow: 0 18px 46px rgba(0,0,0,.35);
+    }
+    .btn:active{ transform: translateY(0px); }
+
+    .btn::after{
+      content:"";
+      position:absolute;
+      inset:-60%;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.35), transparent 55%);
+      opacity:0;
+      transform: scale(.9);
+      transition: opacity .15s ease, transform .15s ease;
+      pointer-events:none;
+    }
+    .btn:active{
+      border-color: rgba(255,255,255,.28);
+      box-shadow: 0 0 0 4px rgba(6,182,212,.10);
+    }
+    .btn:active::after{
+      opacity:1;
+      transform: scale(1);
+    }
+
+    .btnPrimary{
+      background: linear-gradient(135deg, rgba(124,58,237,.95), rgba(6,182,212,.85));
+      border: 1px solid rgba(255,255,255,.14);
+      box-shadow: 0 16px 40px rgba(124,58,237,.18);
+    }
+    .btnPrimary:hover{
+      background: linear-gradient(135deg, rgba(124,58,237,1), rgba(6,182,212,.95));
+    }
+    .btnPrimary::before{
+      content:"";
+      position:absolute;
+      inset:-2px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, rgba(124,58,237,.65), rgba(6,182,212,.55), rgba(34,197,94,.45));
+      filter: blur(10px);
+      opacity:.55;
+      pointer-events:none;
+    }
+    .btnPrimary:hover::before{ opacity:.7; }
+
+    .btnAmber{
+      background: linear-gradient(135deg, rgba(245,158,11,.95), rgba(249,115,22,.82));
+      border: 1px solid rgba(255,255,255,.14);
+    }
+
+    .list{
+      display:flex;
+      flex-direction:column;
+      gap: 10px;
+      margin: 0; padding: 0;
+      list-style:none;
+    }
+    .item{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap: 12px;
+      padding: 12px 12px;
+      border-radius: var(--r-md);
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.08);
+    }
+    .item b{ font-weight: 900; }
+    .item small{ color: var(--muted2); display:block; margin-top:3px; line-height:1.3; }
+    .tag{
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.10);
+      color: var(--muted);
+      font-size: 12px;
+      white-space:nowrap;
+    }
+
+    .footer{
+      margin-top: 18px;
+      color: var(--muted2);
+      font-size: 12.5px;
+      display:flex;
+      flex-wrap:wrap;
+      gap: 10px;
+      align-items:center;
+      justify-content:space-between;
+      position:relative;
+      z-index:2;
+    }
+    .footer a{ text-decoration: underline; text-decoration-color: rgba(255,255,255,.25); }
+
+    hr.sep{
+      border:0;
+      height:1px;
+      background: rgba(255,255,255,.10);
+      margin: 14px 0 0;
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      body::before,
+      .portalBg::before,
+      .portalBg::after,
+      .hero h1{
+        animation: none !important;
+      }
+      .btn, .btn:hover{ transition:none !important; }
+    }
   </style>
 </head>
 
 <body>
+  <a class="skip-link" href="#main">Skip to content</a>
 
-<section class="hero">
-  <div class="heroInner">
-    <div class="cloud"></div>
-    <div class="heroTop">
+  <main class="wrap" id="main">
+    <div class="portalBg" aria-hidden="true"></div>
+
+    <div class="topbar" role="navigation" aria-label="Primary navigation">
       <div class="brand">
-        <div class="badge">TH</div>
-        <div>
-          <h1 class="title">Taurus Hub</h1>
-          <p class="sub">Learn at your own pace. No rush. Clean doors only.</p>
+        <div class="badge" aria-hidden="true">GD</div>
+        <div class="brandText">
+          <div class="brandName">GIANNIDONA</div>
+          <div class="brandTag">Calm hub • one door per room</div>
         </div>
       </div>
-      <div class="pillRow" style="padding:0;margin:0">
-        <a class="pill" href="#bots">Bots</a>
-        <a class="pill" href="#join">Join</a>
-        <a class="pill" href="#links">Links</a>
+
+      <div class="pills" aria-label="Status">
+        <span class="pill">No tracking</span>
+        <span class="pill">Simple</span>
+        <span class="pill">Reliable</span>
       </div>
     </div>
-    <div class="pillRow">
-      <span class="pill">No accounts</span>
-      <span class="pill">No tracking</span>
-      <span class="pill">One calm hub</span>
+
+    <section class="hero">
+      <h1>Welcome.</h1>
+      <p>Pick what fits. Ignore what doesn’t. No noise, no hype — just clean doors to the right tool.</p>
+    </section>
+
+    <section class="grid">
+      <section class="card" aria-label="Primary">
+        <div class="cardHead">
+          <div>
+            <div class="cardTitle">
+              <span class="icon" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false">
+                  <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8Z" stroke="white" stroke-width="1.8" stroke-linejoin="round"/>
+                </svg>
+              </span>
+              Monica (Primary)
+            </div>
+            <div class="cardSub">Your main room. Start here.</div>
+          </div>
+          <span class="tag">Core</span>
+        </div>
+
+        <div class="cardBody">
+          <div class="btnRow">
+            <a class="btn" href="./ai/">Enter Monica <span aria-hidden="true">→</span></a>
+
+            <!-- CANONICAL SURFSHARK CTA — DO NOT CHANGE (routes via ./go/surfshark-a) -->
+            <a class="btn btnPrimary"
+               href="./go/surfshark-a"
+               target="_blank"
+               rel="noopener"
+               aria-label="Open Surfshark Antivirus deal in a new tab"
+               data-cta="surfshark"
+               data-cta-role="primary">
+              Open Surfshark <span aria-hidden="true">↗</span>
+            </a>
+
+            <a class="btn" href="./tools/">Tools Hub <span aria-hidden="true">→</span></a>
+            <a class="btn" href="./digistore/">Digistore Shelf <span aria-hidden="true">→</span></a>
+
+            <a class="btn btnAmber" href="./join/">Join / Unlock <span aria-hidden="true">→</span></a>
+          </div>
+
+          <hr class="sep" />
+
+          <ul class="list" style="margin-top:14px;">
+            <li class="item">
+              <div>
+                <b>Fast path</b>
+                <small>Monica → pick a room → open link → done.</small>
+              </div>
+              <span class="tag">2 clicks</span>
+            </li>
+
+            <li class="item">
+              <div>
+                <b>Clean routing</b>
+                <small>All payments and pricing stay inside <b>./join/</b> only.</small>
+              </div>
+              <span class="tag">PAY rule</span>
+            </li>
+
+            <li class="item">
+              <div>
+                <b>Quiet design</b>
+                <small>No dashboards. No alerts. No fake urgency.</small>
+              </div>
+              <span class="tag">Calm</span>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <aside class="card" aria-label="Rooms">
+        <div class="cardHead">
+          <div>
+            <div class="cardTitle">
+              <span class="icon" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false">
+                  <path d="M8 3h8v18H8V3Z" stroke="white" stroke-width="1.8" />
+                  <path d="M16 12h5v9h-5" stroke="white" stroke-width="1.8" stroke-linecap="round"/>
+                  <path d="M12.5 12h0.01" stroke="white" stroke-width="3" stroke-linecap="round"/>
+                </svg>
+              </span>
+              Rooms
+            </div>
+            <div class="cardSub">Everything stays organized.</div>
+          </div>
+          <span class="tag">Router</span>
+        </div>
+
+        <div class="cardBody">
+          <ul class="list">
+            <li class="item">
+              <div>
+                <b>Tools</b>
+                <small>Privacy + utility tools. Simple, verified doors.</small>
+              </div>
+              <a class="btn" href="./tools/" style="padding:9px 10px; min-height:38px;">Open →</a>
+            </li>
+
+            <li class="item">
+              <div>
+                <b>Digistore</b>
+                <small>Offers you’ve chosen. No clutter.</small>
+              </div>
+              <a class="btn" href="./digistore/" style="padding:9px 10px; min-height:38px;">Open →</a>
+            </li>
+
+            <li class="item">
+              <div>
+                <b>Join / Unlock</b>
+                <small>Single source of truth for payments.</small>
+              </div>
+              <a class="btn btnAmber" href="./join/" style="padding:9px 10px; min-height:38px;">Open →</a>
+            </li>
+          </ul>
+
+          <hr class="sep" />
+
+          <div style="margin-top:14px; color: rgba(255,255,255,.72); font-size: 13.5px; line-height: 1.45;">
+            <b style="color: rgba(255,255,255,.90);">Rule:</b>
+            No direct PayPal links anywhere else. All “Join / Unlock” routes to <b>./join/</b>.
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <div class="footer">
+      <div>© GIANNIDONA • calm by design</div>
+      <div>
+        <a href="./ai/">Monica</a>
+        &nbsp;•&nbsp;
+        <a href="./join/">Join / Unlock</a>
+        &nbsp;•&nbsp;
+        <a href="./tools/">Tools</a>
+        &nbsp;•&nbsp;
+        <a href="./digistore/">Digistore</a>
+      </div>
     </div>
-  </div>
-</section>
-
-<main class="wrap">
-
-<div id="bots" class="sectionLabel">📦 Bots</div>
-
-<section class="grid">
-  <article class="card">
-    <h3>Gianni Dona</h3>
-    <p>Your main guidance room.</p>
-    <div class="row">
-      <a class="btn btnPrimary" href="https://monica.im/home/chat/gianni-dona/3ElxC224" target="_blank">Open</a>
-      <a class="btn" href="#join">Join / Unlock</a>
-    </div>
-  </article>
-
-  <article class="card">
-    <h3>Insight Engine</h3>
-    <p>Signal → test → decide.</p>
-    <div class="row">
-      <a class="btn btnPrimary" href="https://monica.im/home/chat/insight--engine/UWDW8jdK" target="_blank">Open</a>
-      <a class="btn" href="#join">Join / Unlock</a>
-    </div>
-  </article>
-
-  <article class="card">
-    <h3>Small Business Guide</h3>
-    <p>Calm, practical structure.</p>
-    <div class="row">
-      <a class="btn btnPrimary" href="https://monica.im/home/chat/small-business-systems-guide/4U2JRMi" target="_blank">Open</a>
-      <a class="btn" href="#join">Join / Unlock</a>
-    </div>
-  </article>
-
-  <article class="card">
-    <h3>Bad Energy Repeller</h3>
-    <p>Grounding room.</p>
-    <div class="row">
-      <a class="btn btnPrimary" href="https://monica.im/home/chat/bad-energy-repeller/cHbp7x1T" target="_blank">Open</a>
-      <a class="btn" href="#join">Join / Unlock</a>
-    </div>
-  </article>
-</section>
-
-<div id="join" class="sectionLabel">📦 Join</div>
-
-<section class="grid">
-  <article class="card" style="grid-column:span 12">
-    <h3>Monthly Access</h3>
-    <p>$5/month. Cancel anytime.</p>
-    <div class="row">
-      <a class="btn btnPrimary" href="https://www.paypal.com/ncp/payment/DCFGC5QQVL6MQ" target="_blank">Open PayPal</a>
-    </div>
-  </article>
-</section>
-
-<div id="links" class="sectionLabel">📦 Links</div>
-
-<section class="grid">
-  <article class="card">
-    <h3>Primary Hub</h3>
-    <p>Your current live hub.</p>
-    <div class="row">
-      <a class="btn btnPrimary" href="https://get-creative-now.vercel.app" target="_blank">Open</a>
-    </div>
-  </article>
-
-  <article class="card">
-    <h3>Surfshark</h3>
-    <p>Privacy & Security.</p>
-    <div class="row">
-      <a class="btn btnPrimary" href="https://links.surfsharkbiz.com/s/c/EVdqWVYjFX1QAHAltMrI1tqbCUbyyoPGEXJddmjYSl7dJ0YPVDioThKw2cP4yeBQ6YfCxBKLvJcnk5wHt2ILMfHS-x-MuTY9VApyF7n9LWzDysNp6EIRU4FpoMyt9h-W_Lxpi0eINJfX663vIsJOrS1P4_GnE9rw4Mh0aE6V5dIPWSKfoYJXAIr_T3Blhgu8IqPtIldgADBlxVEcYgujqShxiw1Bl5ImBPd8WTjsnS-Z023YrwzRBMrqs_hl8Hc5mmfbnNEGxWs9utwS86r4QcpxzjH9zZ7Pu6CwoyE6qfQXwu16nxpSNqmsk5BWd_x1vRa5kjnWQuszhDGecTJo7cPhziBTf5tkjZoPOxrpdI1OPTjp24QEAeNq-tkHjEcFucOX-YH_bRZzXp66o4V2dwUXM7KsovCZR9IJLBhb6ds3YUhdBgi1MfgOJwqOJkzzHQraDtBaoouxKpnLJ-6QZEDyIQVzuyF1rFdcXfYh9S3_/ZUIrRiPXvoZdQMB42GsFJ2_K9w_k2d0l/17" target="_blank">Open</a>
-    </div>
-  </article>
-</section>
-
-<footer>
-  Taurus Hub · calm navigation · no tracking
-</footer>
-
-</main>
-
+  </main>
 </body>
 </html>
+```
