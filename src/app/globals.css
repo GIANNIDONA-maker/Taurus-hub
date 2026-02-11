@@ -1,0 +1,78 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 
+  ==========================================================
+  GIANNIDONA — Global Styles (Migrated to Tailwind)
+  ========================================================== 
+*/
+
+@layer base {
+  :root {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+  }
+
+  html {
+    @apply h-full antialiased;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply min-h-screen bg-slate-950 text-slate-100 font-sans leading-relaxed selection:bg-blue-500/30;
+  }
+  
+  /* Better media defaults */
+  img, svg, video, canvas {
+    @apply block max-w-full;
+  }
+}
+
+@layer components {
+  /* 
+    The .wrap class replacement. 
+    In Next.js, we can use this class or a <Container> component.
+    Matches your max-width: 1150px preference.
+  */
+  .wrap {
+    @apply max-w-[1150px] mx-auto px-4 py-6 sm:px-6 lg:px-8;
+  }
+
+  /* Standard Button Style based on your design system */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-sm font-semibold text-white transition-all hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-slate-950 disabled:opacity-50 disabled:pointer-events-none;
+  }
+  
+  .btn-primary {
+    @apply bg-blue-600 border-blue-500 hover:bg-blue-500 text-white;
+  }
+}
+
+@layer utilities {
+  /* Shared text helpers from app.css */
+  .muted {
+    @apply opacity-80 text-slate-400;
+  }
+  
+  .fine {
+    @apply text-xs opacity-70 mt-3 block;
+  }
+
+  /* Accessibility: Skip Link */
+  .skip {
+    @apply absolute -left-[999px] top-auto w-px h-px overflow-hidden focus:left-4 focus:top-4 focus:w-auto focus:h-auto focus:z-50 focus:px-4 focus:py-2 focus:bg-white focus:text-black focus:rounded-md focus:font-bold;
+  }
+
+  /* The Dot utility */
+  .dot {
+    @apply w-2 h-2 rounded-full inline-block bg-white/35;
+  }
+}
+
+/* Accessibility: Reduce Motion */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    scroll-behavior: auto !important;
+  }
+}
