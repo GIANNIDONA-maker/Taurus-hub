@@ -1,137 +1,109 @@
-import type { Metadata } from "next";
-import { CreditCard, Heart, ShieldCheck, QrCode, ExternalLink } from "lucide-react";
-import Image from "next/image";
-import Link from "next/link";
+"use client";
 
-export const metadata: Metadata = {
-  title: "Support | Taurus Hub",
-  description: "Support the platform for $5/month via PayPal or QR.",
-};
+import { motion } from "framer-motion";
+import { Check, Shield, Lock, Zap, Star } from "lucide-react";
+import Link from "next/link";
 
 export default function JoinPage() {
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="max-w-[1150px] mx-auto px-4 sm:px-6 lg:px-8 pb-20">
       
-      {/* Background Gradients */}
-      <div className="fixed inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute top-0 left-[20%] w-[1100px] h-[650px] bg-[radial-gradient(circle,rgba(96,165,250,0.15),transparent_60%)]" />
-        <div className="absolute top-[10%] right-[10%] w-[900px] h-[600px] bg-[radial-gradient(circle,rgba(244,114,182,0.12),transparent_55%)]" />
+      {/* Hero / Header */}
+      <div className="text-center py-16 sm:py-24 relative">
+        {/* Glow behind text */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-[#7C5CFF]/20 blur-[100px] rounded-full pointer-events-none" />
+        
+        <motion.h1 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="relative text-5xl sm:text-7xl font-black tracking-tight text-white mb-6 drop-shadow-2xl"
+        >
+          UNLOCK <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#7C5CFF] to-[#2FE6B8]">THE HUB</span>
+        </motion.h1>
+        
+        <motion.p 
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.2 }}
+          className="relative text-xl text-slate-400 max-w-2xl mx-auto leading-relaxed"
+        >
+          One payment. Lifetime access. No subscriptions. <br />
+          Join the private ecosystem for builders, thinkers, and creators.
+        </motion.p>
       </div>
 
-      <div className="relative max-w-5xl mx-auto">
+      {/* Pricing Card */}
+      <motion.div 
+        initial={{ scale: 0.95, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        transition={{ delay: 0.3 }}
+        className="max-w-md mx-auto relative group"
+      >
+        {/* Neon Border Glow */}
+        <div className="absolute -inset-1 bg-gradient-to-br from-[#7C5CFF] via-[#2FE6B8] to-[#7C5CFF] rounded-3xl blur opacity-40 group-hover:opacity-75 transition duration-1000 group-hover:duration-200" />
         
-        {/* Header */}
-        <header className="mb-12 border-b border-slate-800 pb-6">
-          <h1 className="text-3xl font-bold tracking-tight text-white">Support & Join</h1>
-          <p className="mt-2 text-slate-400">
-            Support Taurus Hub for <span className="text-blue-400 font-bold">$5/month</span>. Use PayPal or scan the QR.
-          </p>
-        </header>
-
-        <div className="grid grid-cols-1 lg:grid-cols-[1.3fr_0.7fr] gap-8">
+        <div className="relative rounded-2xl bg-[#0B1020] border border-white/10 p-8 sm:p-10 shadow-2xl">
           
-          {/* Main Card: Subscription */}
-          <section className="rounded-2xl border border-slate-800 bg-slate-900/50 backdrop-blur-sm p-6 sm:p-8 shadow-xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-bold uppercase tracking-wider mb-4">
-              <Heart size={12} /> Monthly Support
+          <div className="flex justify-between items-center mb-8">
+            <div>
+              <h3 className="text-lg font-medium text-slate-300">Lifetime Access</h3>
+              <div className="flex items-baseline gap-1 mt-2">
+                <span className="text-5xl font-bold text-white">$99</span>
+                <span className="text-sm text-slate-500">/ once</span>
+              </div>
             </div>
-            
-            <h2 className="text-4xl font-bold text-white mb-4">$5 <span className="text-lg text-slate-500 font-normal">/ month</span></h2>
-            
-            <p className="text-slate-300 mb-6 leading-relaxed">
-              If you find the bots and tools useful, your support helps cover hosting, testing, and continuous improvements.
-            </p>
-
-            <ul className="space-y-3 mb-8 text-slate-400 text-sm">
-              <li className="flex items-center gap-3">
-                <ShieldCheck size={16} className="text-green-400" />
-                Helps cover hosting, testing, and improvements
-              </li>
-              <li className="flex items-center gap-3">
-                <CreditCard size={16} className="text-blue-400" />
-                PayPal manages payments and receipts securely
-              </li>
-              <li className="flex items-center gap-3">
-                <ExternalLink size={16} className="text-purple-400" />
-                Cancel anytime from your PayPal dashboard
-              </li>
-            </ul>
-
-            <div className="flex flex-wrap gap-4">
-              <a 
-                href="#" // TODO: Add PayPal Link
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="flex-1 min-w-[200px] inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-semibold transition-all shadow-lg shadow-blue-900/20"
-              >
-                Support via PayPal <ExternalLink size={16} />
-              </a>
-              <Link 
-                href="/ai"
-                className="px-6 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-medium transition-all border border-slate-700"
-              >
-                See AI Bots
-              </Link>
+            <div className="h-12 w-12 rounded-xl bg-white/5 flex items-center justify-center border border-white/10">
+              <Lock className="text-[#2FE6B8]" size={24} />
             </div>
+          </div>
 
-            {/* QR Code Section */}
-            <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 gap-6 pt-8 border-t border-slate-800">
-              
-              {/* QR Image Card 1 */}
-              <div className="p-4 rounded-xl bg-black/20 border border-slate-800">
-                <h3 className="text-sm font-semibold text-slate-300 mb-3 flex items-center gap-2">
-                  <QrCode size={14} /> Scan to Pay
-                </h3>
-                <div className="relative aspect-square w-full bg-slate-800 rounded-lg overflow-hidden flex items-center justify-center text-slate-600">
-                  {/* Placeholder for QR Code */}
-                  <span className="text-xs">Upload 7846.jpg to /public</span>
-                  {/* Uncomment below when image is uploaded to /public/7846.jpg */}
-                  {/* <Image src="/7846.jpg" alt="QR Code" fill className="object-cover" /> */}
+          <ul className="space-y-4 mb-8">
+            {[
+              "Access to all Private AI Bots",
+              "Unlimited Tool Usage",
+              "Priority Support Channel",
+              "Early Access to New Scripts",
+              "Private Community Discord"
+            ].map((item, i) => (
+              <li key={i} className="flex items-center gap-3 text-slate-300">
+                <div className="flex-shrink-0 w-6 h-6 rounded-full bg-[#2FE6B8]/10 flex items-center justify-center">
+                  <Check size={14} className="text-[#2FE6B8]" />
                 </div>
-              </div>
+                {item}
+              </li>
+            ))}
+          </ul>
 
-              {/* QR Image Card 2 */}
-              <div className="p-4 rounded-xl bg-black/20 border border-slate-800">
-                <h3 className="text-sm font-semibold text-slate-300 mb-3 flex items-center gap-2">
-                  <ShieldCheck size={14} /> Monthly Access
-                </h3>
-                <div className="relative aspect-square w-full bg-slate-800 rounded-lg overflow-hidden flex items-center justify-center text-slate-600">
-                  {/* Placeholder for Access Card */}
-                  <span className="text-xs">Upload 8812.jpg to /public</span>
-                   {/* <Image src="/8812.jpg" alt="Access Card" fill className="object-cover" /> */}
-                </div>
-              </div>
+          <button className="w-full py-4 rounded-xl font-bold text-lg bg-gradient-to-r from-[#7C5CFF] to-[#2FE6B8] text-white shadow-[0_10px_30px_rgba(124,92,255,0.3)] hover:shadow-[0_10px_40px_rgba(47,230,184,0.4)] hover:scale-[1.02] active:scale-[0.98] transition-all">
+            Join Now
+          </button>
 
-            </div>
-          </section>
+          <p className="mt-6 text-xs text-center text-slate-500">
+            Secure payment via Stripe/PayPal. <br />
+            30-day money-back guarantee.
+          </p>
+        </div>
+      </motion.div>
 
-          {/* Sidebar: Quick Links */}
-          <aside className="space-y-6">
-            <div className="p-6 rounded-2xl border border-slate-800 bg-slate-900/50 backdrop-blur-sm">
-              <h3 className="text-sm font-bold text-slate-400 uppercase tracking-wider mb-4">Quick Navigation</h3>
-              <div className="space-y-3">
-                <Link href="/tools" className="block w-full px-4 py-2 rounded-lg bg-slate-800/50 hover:bg-slate-800 text-slate-300 hover:text-white transition-colors text-sm font-medium border border-transparent hover:border-slate-700">
-                  Tools Dashboard
-                </Link>
-                <Link href="/digistore" className="block w-full px-4 py-2 rounded-lg bg-slate-800/50 hover:bg-slate-800 text-slate-300 hover:text-white transition-colors text-sm font-medium border border-transparent hover:border-slate-700">
-                  Digital Store
-                </Link>
-                <a href="#" className="block w-full px-4 py-2 rounded-lg bg-pink-500/10 hover:bg-pink-500/20 text-pink-400 hover:text-pink-300 transition-colors text-sm font-medium border border-pink-500/20">
-                  Surfshark Deal ↗
-                </a>
-              </div>
-            </div>
-
-            <div className="p-6 rounded-2xl border border-slate-800 bg-slate-950/80">
-              <p className="text-sm text-slate-400 mb-2 font-medium">Want a one-time tip option?</p>
-              <p className="text-xs text-slate-500 leading-relaxed">
-                If you prefer not to subscribe monthly, let us know and we can add a "Buy me a coffee" link here.
-              </p>
-            </div>
-          </aside>
-
+      {/* Trust Badges */}
+      <div className="mt-16 grid grid-cols-1 sm:grid-cols-3 gap-6 text-center">
+        <div className="p-4 rounded-xl bg-white/5 border border-white/5">
+          <Shield className="mx-auto text-slate-400 mb-2" size={24} />
+          <h4 className="text-white font-semibold">Secure & Private</h4>
+          <p className="text-xs text-slate-500 mt-1">We don't sell your data.</p>
+        </div>
+        <div className="p-4 rounded-xl bg-white/5 border border-white/5">
+          <Zap className="mx-auto text-slate-400 mb-2" size={24} />
+          <h4 className="text-white font-semibold">Instant Unlock</h4>
+          <p className="text-xs text-slate-500 mt-1">Get access immediately.</p>
+        </div>
+        <div className="p-4 rounded-xl bg-white/5 border border-white/5">
+          <Star className="mx-auto text-slate-400 mb-2" size={24} />
+          <h4 className="text-white font-semibold">Top Rated</h4>
+          <p className="text-xs text-slate-500 mt-1">Loved by 500+ builders.</p>
         </div>
       </div>
+
     </div>
   );
 }
